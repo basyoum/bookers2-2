@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers22</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <%# devise 側で用意しているヘルパーメソッド%>
+      <%# ログインしている→elseまでのコードが記述%>
+      <%# ログインしていない→elseから下のコードが記述%>
+      <% if user_signed_in? %>
+       <li>
+         <%= link_to 'Log out', destroy_user_session_path, method: :delete %>
+       </li>
+      <% else %>
+       <li>
+         <%= link_to 'Sign_up', new_user_registration_path %>
+       </li>
+       <li>
+         <%= link_to 'Log in', new_user_session_path %>
+       </li>
+      <% end %>
+    </header>
+    <%= yield %>
+  </body>
+</html>
