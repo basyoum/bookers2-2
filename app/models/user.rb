@@ -7,6 +7,8 @@ class User < ApplicationRecord
   #ActiveStorageを使ってモデルに画像を持たせる
   has_one_attached :profile_image
   has_many :books, dependent: :destroy
+  #いいね機能
+  has_many :favorites, dependent: :destroy
 
   validates :name, uniqueness: true, length: {minimum: 2, maximum: 20}
   validates :introduction, length: {maximum: 50}
