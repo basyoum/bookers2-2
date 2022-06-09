@@ -15,11 +15,11 @@ class User < ApplicationRecord
   #画像がない時に表示する画像をActiveStorageに格納する
   def get_profile_image(width,height)
     #画像が付属していない？
-    #unless profile_image.attached?
-      #file_path = Rails.root.join('app/assets/images/no_image.jpeg')
-      #profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    #end
-    (profile_image.attached?) ? profile_image : 'no_image.jpg'
+    unless profile_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    #(profile_image.attached?) ? profile_image : 'no_image.jpg'
     #メソッドに引数を設定し、引数に設定した値に画像のサイズを変換するようにした
     profile_image.variant(resize_to_limit: [width,height]).processed
   end

@@ -1,9 +1,19 @@
 <h2>Log in</h2>
 
 <%= form_with model: @user, url: user_session_path do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <%# ログインの際のメールアドレス入力欄%>
+  <%#<div class="field">
+    <%#= f.label :email %><%#<br />
+    <%#= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  <%#</div>%>
+
+  <%# ログインの際の名前(name)入力欄%>
+  <%# autofocus: true→ページを読み込んだらすぐにautofocus属性を
+  記述している部分にカーソルが移動して入力状態になる%>
+  <%# 1つのhtmlファイルに1つまで%>
+  <div class = 'field'>
+    <%= f.label :name %><br>
+    <%= f.text_field :name, autofocus: true, class: 'name' %>
   </div>
 
   <div class="field">
