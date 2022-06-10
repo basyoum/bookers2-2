@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     #userがいいねしたのは、どの投稿なのかわかるようにするためbookにネストさせる
     #resourceのすることで、urlにいいねのidを含めないようにしている
     resource 'favorites', only: [:create, :destroy]
+    #ネストしたURLを作成することでparams[:book_id]でBookのidが取得できるようになる
+    resources 'book_comments', only:[:create, :destroy]
   end
 
   resources 'users', only: [:index, :show, :edit, :update]

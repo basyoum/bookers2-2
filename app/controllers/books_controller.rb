@@ -10,6 +10,8 @@ class BooksController < ApplicationController
 
   def show
     @book = Book.find(params[:id])
+    #投稿詳細画面でコメント投稿を行うため、formパラメータ用にbook_commentオブジェクトを取得
+    @book_comment = BookComment.new
   end
 
   def create
