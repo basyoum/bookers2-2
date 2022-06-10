@@ -10,11 +10,17 @@ Rails.application.routes.draw do
 
   resources 'books', only: [:index, :show, :create, :edit, :update, :destroy] do
     #userがいいねしたのは、どの投稿なのかわかるようにするためbookにネストさせる
-    #resourceのすることで、urlにいいねのidを含めないようにしている
+    #resourceにすることで、urlにいいねのidを含めないようにしている
     resource 'favorites', only: [:create, :destroy]
     #ネストしたURLを作成することでparams[:book_id]でBookのidが取得できるようになる
     resources 'book_comments', only:[:create, :destroy]
   end
 
-  resources 'users', only: [:index, :show, :edit, :update]
+  resources 'users', only: [:index, :show, :edit, :update] do
+    #ネストしたURLを作成することでparams[:user_id]でUserのidが取得できるようになる
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
+  end
+
 end
