@@ -13,7 +13,21 @@ class Book < ApplicationRecord
   def favorited_by?(user)
     #favoriteテーブルに、引数(current_user)のidと等しいuser_idを持つレコードは存在するか?
     favorites.where(user_id: user.id).exists?
-  end
   #一致するレコードがある = createアクションへ
   #一致するレコードがない = destroyアクションへの分岐をさせることができる
+  end
+
+  #検索機能、検索分岐条件
+  def self.search_for(content, method)
+    if method == 'perfect'
+      Book.where(title: content)
+    elsif method == 'forward'
+      Book.where(' title LIKE ?', content + '%')
+    elsif method == 'backward'
+      Book.where(' title LIKE ? ', '%' + content)
+    else
+      Book.where(' title LIKE ?', '%' + content + '%')
+    end
+  end
+
 end

@@ -13,7 +13,6 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
 
   #フォロー・フォロワー機能
-
   #自分がフォローされる（被フォロー）側の関係性
   #任意のテーブル名(reverse_of_relationship)、参照するテーブル、参照するカラム
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
@@ -28,7 +27,6 @@ class User < ApplicationRecord
   has_many :followings, through: :relationships, source: :followed
 
   #フォローする処理
-
   #フォローする人のid
   def follow(user)
     #フォローされる人のid
@@ -43,6 +41,19 @@ class User < ApplicationRecord
   #フォローしているかを判定
   def following?(user)
     followings.include?(user)
+  end
+
+  #検索機能、検索分岐条件
+  def self.search_for(content, method)
+    if method == 'perfect'
+      User.where(name: content)
+    elsif method == 'forward'
+      User.where(' name LIKE ?', content + '%')
+    elsif method == 'backward'
+      User.where(' name LIKE ? ', '%' + content)
+    else
+      User.where(' name LIKE ?', '%' + content + '%')
+    end
   end
 
 
