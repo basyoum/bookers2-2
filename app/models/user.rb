@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   #フォロー・フォロワー機能
   #自分がフォローされる（被フォロー）側の関係性
-  #任意のテーブル名(reverse_of_relationship)、参照するテーブル、参照するカラム
+  #任意のテーブル名(reverse_of_relationship)、参照するテーブル、参照するカラム(フォローされる人のid)
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
 
   #被フォロー関係を通じて参照→自分をフォローしている人
